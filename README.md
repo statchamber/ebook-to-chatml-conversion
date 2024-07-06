@@ -1,6 +1,6 @@
 # ebook to chatml conversion tool
 ## description
-this tool converts ebooks (in .txt or .epub format) into both dialogue based and chatml formats. you can then use these formats for creating datasets. this script uses [koboldcpp](https://github.com/LostRuins/koboldcpp/releases) for gbnf and alpaca for all of the prompts, which can be seen in [prompts.py](prompts.py). the script works decently well even with 7B models. note that you can use this script with any context size you want (4096, 8192, or even 32K context size) by editing [config.yaml](config.yaml), but it is better to have 8192+ context. scroll all the way down for examples or open the `examples` folder
+this tool converts ebooks (in .txt or .epub format) into both dialogue based and chatml formats. you can then use these formats for creating datasets. this script uses [koboldcpp](https://github.com/LostRuins/koboldcpp/releases) for gbnf and alpaca for all of the prompts, which can be seen in [prompts.py](prompts.py). the script works decently well even with 7B models but requires some editing. note that you can use this script with any context size you want (4096, 8192, or even 32K context size) by editing [config.yaml](config.yaml), but it is better to have 8192+ context. to see examples of llm conversions scroll all the way down for examples or open the `examples` folder
 ## how does it work?
 1. get text from ./ebooks (.txt or .epub)
 2. breaks text into chunks
