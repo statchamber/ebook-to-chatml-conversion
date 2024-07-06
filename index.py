@@ -305,9 +305,6 @@ def start_conversion_of_book(filename, context_limit):
                 remaining_lines = CONTEXT_PARAGRAPHS - len(intra_chunk_context.split('\n'))
                 intra_chunk_context = inter_chunk_context.split('\n')[-remaining_lines:] + intra_chunk_context.split('\n')
                 intra_chunk_context = "\n".join(intra_chunk_context)
-
-            if DEBUG and intra_chunk_context == "" and inter_chunk_context != "":
-                print("!" * 200)
             
             chunk = prompt_lines[j:j+5]
             context_lines = masked_total_lines[j+5:j+5+CONTEXT_PARAGRAPHS]  # Get the next CONTEXT_PARAGRAPHS lines for context from masked_total_lines
