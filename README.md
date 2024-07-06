@@ -13,7 +13,7 @@ This tool converts ebooks (in .txt or .epub format) into both dialogue based and
 1. Install [koboldcpp](https://github.com/LostRuins/koboldcpp) and load a gguf model with at least 4096 context
 2. install dependencies `pip install -r requirements.txt`
 3. edit [config.yaml](config.yaml) and change settings for example `max_convert` to how many paragraphs you want to convert (default chunk settings are for 8192 context)
-4. put your ebooks in `./ebooks`
+4. Create a folder called `./ebooks` and put your ebooks in it
 5. run `python index.py` and the result should show up in `./output`
 ## config help
 - chunk: decrease chunk.size and chunk.context if you are using lower conntext like 2048 or 4096. increase it if you are using higher values like 32k.
