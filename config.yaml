@@ -1,5 +1,5 @@
 chunk:
-  size: 10            # Paragraphs per chunk (must be multiple of 5)
+  size: 20            # Paragraphs per chunk (must be multiple of 5)
   context: 10         # Context paragraphs at start/end of each chunk
   max_convert: 40     # Max paragraphs to convert (multiple of 5, >= chunk size; use 1000000 for whole book)
 
