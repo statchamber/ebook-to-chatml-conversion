@@ -2,11 +2,11 @@
 ## description
 this tool converts ebooks (in .txt or .epub format) into dialogue based and chatml formatted groupchats. you can then use this format for creating datasets. this script uses [koboldcpp](https://github.com/LostRuins/koboldcpp/releases) for gbnf and alpaca for all of the prompts, which can be seen in [prompts.py](Conversion/prompts.py). the script works decently well with 7B models but requires some editing. note that you can use this script with any context size you want (4096, 8192, or even 32K context size) by editing [config.yaml](config.yaml), but it is better to have 8192+ context.
 ## examples (200 lines)
-Killed Once, Lived Twice by Gary Whitmore - kunoichi dpo v2 7B Q8_0 @ 8192 context ([chatml](Examples/Killed-Once-Lived-Twice_chatml.txt) | [regular](Examples/Killed-Once-Lived-Twice_converted.txt))
+Killed Once, Lived Twice by Gary Whitmore - kunoichi dpo v2 7B Q8_0 @ 8192 context ([chatml](examples/Killed-Once-Lived-Twice_chatml.txt) | [regular](examples/Killed-Once-Lived-Twice_converted.txt))
 
-Drone World by Jim Kochanoff - gemma 2 9B @ 8192 context ([chatml](Examples/Drone-World_chatml.txt) | [regular](Examples/Drone-World_converted.txt))
+Drone World by Jim Kochanoff - gemma 2 9B @ 8192 context ([chatml](examples/Drone-World_chatml.txt) | [regular](examples/Drone-World_converted.txt))
 
-The awakening by L C Ainsworth - kukulemon 7B Q8_0 @ 4096 context ([chatml](Examples/The-awakening-Dark-Passenger_chatml.txt) | [regular](Examples/The-awakening-Dark-Passenger_converted.txt))
+The awakening by L C Ainsworth - kukulemon 7B Q8_0 @ 4096 context ([chatml](examples/The-awakening-Dark-Passenger_chatml.txt) | [regular](examples/The-awakening-Dark-Passenger_converted.txt))
 ## how does it work?
 1. get text from ./ebooks (.txt or .epub)
 2. breaks text into chunks
