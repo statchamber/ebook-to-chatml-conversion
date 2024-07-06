@@ -39,7 +39,7 @@ if KOBOLDAPI.endswith('/'):
 
 if DEBUG:
     print("Debug mode is enabled.")
-    print(f"Loading entity detection model {ENTITY_DETECTION_MODEL}")
+    print(f"Trying to load entity detection model {ENTITY_DETECTION_MODEL}, if this step fails edit config.yaml")
 
 # load tagger
 tagger = SequenceTagger.load(ENTITY_DETECTION_MODEL)
@@ -68,6 +68,7 @@ def call_ner(text: str) -> List[Dict]:
         if entity["type"] == "PER" and entity["confidence"] > CONFIDENCE}.values())
     
     return high_confidence_persons
+
 # Function to generate text using KoboldAI API
 def kobold_generate_text(prompt, temperature, grammar, max_length, max_token_count, cleanse):
     attempts = 0
@@ -174,7 +175,22 @@ def gemini_generate_text(prompt, conversation_history=None):
                 time.sleep(1)  # Wait for 1 second before retrying
             else:
                 raise  # Re-raise the exception if all attempts failed
-    
+
+def get_koboldai_context_limit():
+    attempts = 0
+    while attempts < 3:
+        try:
+            max_token_count_response = requests.get(f'{KOBOLDAPI}/api/extra/true_max_context_length', headers={'accept': 'application/json'})
+            max_token_count = max_token_count_response.json()['value']
+            return max_token_count
+        except requests.exceptions.RequestException as e:
+            print(f"Attempt {attempts + 1}: KoboldAI API not available on {KOBOLDAPI}, is the API running?")
+            attempts += 1
+            if attempts == 3:
+                sys.exit(1)
+    return None  # This line will only be reached if all attempts fail
+
+
 def string_similarity(a, b):
     return difflib.SequenceMatcher(None, a, b).ratio()
 
@@ -193,7 +209,7 @@ def parse_epub(epub_path):
                             continue
                         yield para.get_text(strip=True)
 
-def start_conversion_of_book(filename):
+def start_conversion_of_book(filename, context_limit):
     filename = os.path.splitext(filename)[0]
     print(f"Starting conversion of book: {filename}")
     with open(os.path.join(BIN_DIR, f"{filename}.json"), 'r', encoding='utf-8') as f:
@@ -239,6 +255,15 @@ def start_conversion_of_book(filename):
         for original_name, masked_name in sorted(masked_names.items(), key=lambda x: len(x[0]), reverse=True):
             prompt = re.sub(r'\b' + re.escape(original_name) + r'\b', masked_name, prompt, flags=re.IGNORECASE)
         
+        # Apply the same masking to the total_lines
+        total_lines = paragraphs[i:i+PARAGRAPH_CHUNK_SIZE+CONTEXT_PARAGRAPHS]
+        masked_total_lines = []
+        for line in total_lines:
+            masked_line = line
+            for original_name, masked_name in sorted(masked_names.items(), key=lambda x: len(x[0]), reverse=True):
+                masked_line = re.sub(r'\b' + re.escape(original_name) + r'\b', masked_name, masked_line, flags=re.IGNORECASE)
+            masked_total_lines.append(masked_line)
+        
         formatted_speakers = set([f'"\\"{masked_name}\\""' for masked_name in masked_names.values()])
         formatted_speakers = ' | '.join(formatted_speakers) + " | string"
         
@@ -246,9 +271,9 @@ def start_conversion_of_book(filename):
         if USE_GEMINI_SUMMARIZATION:
             summary = gemini_generate_text(summaryprompt)
             if summary == "No response generated after 10 attempts.":
-                summary = kobold_generate_text(summaryprompt, 0.5, "", 500, 8192, True)
+                summary = kobold_generate_text(summaryprompt, 0.5, "", 500, context_limit, True)
         else:
-            summary = kobold_generate_text(summaryprompt, 0.5, "", 500, 8192, True)
+            summary = kobold_generate_text(summaryprompt, 0.5, "", 500, context_limit, True)
 
         if DEBUG:
             print("Summary prompt:")
@@ -264,28 +289,32 @@ def start_conversion_of_book(filename):
 
         # Prepend the previous chunk's converted prompt for context
         if converted_prompts:
-            inter_chunk_context = "\n".join(converted_prompts[-CONTEXT_PARAGRAPHS:]) + "\n"  # Use last CONTEXT_PARAGRAPHS lines for context
+            inter_chunk_context = "\n".join(converted_prompts[-CONTEXT_PARAGRAPHS:]) # Use last CONTEXT_PARAGRAPHS lines for context
         else:
             inter_chunk_context = ""
 
         for j in range(0, len(prompt_lines), 5):
             # Prepend the previous chunk's converted prompt for context
             if converted_prompt:
-                intra_chunk_context = "\n".join(converted_prompt[-CONTEXT_PARAGRAPHS:]) + "\n"  # Use last CONTEXT_PARAGRAPHS lines for context
+                intra_chunk_context = "\n".join(converted_prompt[-CONTEXT_PARAGRAPHS:])  # Use last CONTEXT_PARAGRAPHS lines for context
             else:
                 intra_chunk_context = ""
             
-            if intra_chunk_context == "" and inter_chunk_context != "":
-                if DEBUG:
-                    print("!" * 200)
-                intra_chunk_context = inter_chunk_context # if we are on our new 20 line chunk, use the last CONTEXT_PARAGRAPHS lines from the previous chunk as context
+            # If intra_chunk_context is not full, supplement with inter_chunk_context
+            if len(intra_chunk_context.split('\n')) < CONTEXT_PARAGRAPHS:
+                remaining_lines = CONTEXT_PARAGRAPHS - len(intra_chunk_context.split('\n'))
+                intra_chunk_context = inter_chunk_context.split('\n')[-remaining_lines:] + intra_chunk_context.split('\n')
+                intra_chunk_context = "\n".join(intra_chunk_context)
+
+            if DEBUG and intra_chunk_context == "" and inter_chunk_context != "":
+                print("!" * 200)
+            
             chunk = prompt_lines[j:j+5]
-            total_lines = paragraphs[i:i+PARAGRAPH_CHUNK_SIZE+CONTEXT_PARAGRAPHS]
-            context_lines = total_lines[j+5:j+5+CONTEXT_PARAGRAPHS]  # Get the next CONTEXT_PARAGRAPHS lines for context from total lines
-            excerpt = intra_chunk_context + "\n".join(chunk + context_lines)  # Combine chunk and context lines
+            context_lines = masked_total_lines[j+5:j+5+CONTEXT_PARAGRAPHS]  # Get the next CONTEXT_PARAGRAPHS lines for context from masked_total_lines
+            excerpt = intra_chunk_context + "\n" + ("\n".join(chunk + context_lines))  # Combine chunk and context lines
             extracted_lines = "\n".join([f"Line{k+1}: {line}" for k, line in enumerate(chunk)])
             conversionprompt = Prompts.ConversionPrompt.replace("{speakers}", ', '.join(set(masked_names.values()))).replace("{summary}", summary).replace("{excerpt}", excerpt).replace("{extracted_lines}", extracted_lines)
-            conversion = kobold_generate_text(conversionprompt, 0.5, Prompts.ConversionGrammar.replace("{speakers}", formatted_speakers), 500, 8192, True)
+            conversion = kobold_generate_text(conversionprompt, 0.5, Prompts.ConversionGrammar.replace("{speakers}", formatted_speakers), 500, context_limit, True)
             if DEBUG:
                 print("Conversion prompt:")
                 print(conversionprompt)
@@ -304,9 +333,9 @@ def start_conversion_of_book(filename):
                         speaker = conversion_json[line_key].get("speaker", "narrator")
                         
                         # Remove "The " or "A " from the start of the speaker name
-                        if speaker.startswith("The "):
+                        if speaker.lower().startswith("the "):
                             speaker = speaker[4:]
-                        elif speaker.startswith("A "):
+                        elif speaker.lower().startswith("a "):
                             speaker = speaker[2:]
                         
                         # Capitalize the first letter of the speaker name
@@ -315,12 +344,19 @@ def start_conversion_of_book(filename):
                         # Remove everything in parentheses from the speaker name
                         speaker = re.sub(r'\([^)]*\)', '', speaker).strip()
                         
-                        # Check if the speaker starts with "Character_"
-                        if not speaker.startswith("Character_"):
+                        # Check if the speaker is similar to "Not specified" or "N/A"
+                        if string_similarity(speaker.lower(), "not specified") >= 0.8 or string_similarity(speaker.lower(), "n/a") >= 0.8:
+                            if ADD_NARRATOR_TO_CHARACTERLIST:
+                                speaker = "Narrator"
+                            elif ADD_UNKNOWN_TO_CHARACTERLIST:
+                                speaker = "Unknown"
+                        
+                        # Check if the speaker does not include "Character_"
+                        if "character_" not in speaker.lower():
                             # Check if the speaker is similar to any existing speaker
                             similar_speaker = next((s for s in speakers_list if string_similarity(s.lower(), speaker.lower()) >= SIMILARITY_THRESHOLD), None)
                             if similar_speaker:
-                                if DEBUG:
+                                if DEBUG and string_similarity(speaker.lower(), similar_speaker.lower()) < 1:
                                     print(f"Speaker {speaker} is similar to {similar_speaker}")
                                     print(f"Similarity: {string_similarity(speaker.lower(), similar_speaker.lower())}")
                                     print("-"*100)
@@ -330,8 +366,19 @@ def start_conversion_of_book(filename):
                                     print(f"Speaker {speaker} is not in speakers_list")
                                     print("-"*100)
                                 speakers_list.append(speaker)
-                        elif speaker not in speakers_list:
-                            speakers_list.append(speaker)
+                        elif "character_" in speaker.lower(): # speaker includes "character_", we gotta make sure its exactly "Character_X" and nothing else for example "Dr. Character_X"
+                            # Extract the number after "character_"
+                            character_number = re.search(r'character_(\d+)', speaker.lower())
+                            if character_number:
+                                speaker = f"Character_{character_number.group(1)}"
+                            else:
+                                # If no number is found, default to "Unknown"
+                                if DEBUG:
+                                    print(f"Speaker {speaker} is glitched and has no number, defaulting to Unknown")
+                                    print("-"*100)
+                                speaker = "Unknown"
+                            if speaker not in speakers_list:
+                                speakers_list.append(speaker)
                         
                         converted_prompt.append(f"{speaker}: {line}")
                     else:
@@ -418,9 +465,6 @@ def start_conversion_of_book(filename):
     print(f"Final output saved to {output_file_path}")
 
 def clear_bin_dir():
-    if not os.path.exists(BIN_DIR):
-        os.makedirs(BIN_DIR)
-
     for filename in os.listdir(BIN_DIR):
         file_path = os.path.join(BIN_DIR, filename)
         try:
@@ -429,45 +473,57 @@ def clear_bin_dir():
             print(f"Error removing {filename}: {e}")
 
 def main():
+    for directory in [BIN_DIR, EBOOKS_DIR, OUTPUT_DIR]:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+            if directory == EBOOKS_DIR:
+                print("Created ./ebooks, put your books there")
+                sys.exit(1)
     clear_bin_dir()
+
+    context_limit = get_koboldai_context_limit()
+    if DEBUG:
+        print(f"Context limit: {context_limit}")
 
     # Extract text from txt and epub files and save to JSON
     for filename in os.listdir(EBOOKS_DIR):
         if filename.endswith(('.txt', '.epub')):
             file_path = os.path.join(EBOOKS_DIR, filename)
             out_file = os.path.join(BIN_DIR, f"{os.path.splitext(filename)[0]}.json")
-            
             if filename.endswith('.txt'):
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    lines = file.readlines()
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as file:
+                        lines = file.readlines()
+                except UnicodeDecodeError:
+                    # If UTF-8 fails, try with 'latin-1' encoding
+                    with open(file_path, 'r', encoding='latin-1') as file:
+                        lines = file.readlines()
                 paragraphs = []
                 for line in lines:
                     stripped_line = line.strip()
                     if not stripped_line.startswith('>') and '---' not in stripped_line and '***' not in stripped_line and '* * *' not in stripped_line and '@gmail.com' not in stripped_line and stripped_line != '':
-                        if len(stripped_line) < 5 and paragraphs:
+                        if len(stripped_line) < 4 and paragraphs:
                             paragraphs[-1] += ' ' + stripped_line
                         else:
                             paragraphs.append(stripped_line)
             else:  # .epub file
                 paragraphs = list(parse_epub(file_path))
-            
             # Apply the same protections to both txt and epub content
             filtered_paragraphs = []
             for para in paragraphs:
                 stripped_para = para.strip()
                 if not stripped_para.startswith('>') and '---' not in stripped_para and '***' not in stripped_para and '* * *' not in stripped_para and '@gmail.com' not in stripped_para and stripped_para != '':
-                    if len(stripped_para) < 5 and filtered_paragraphs:
+                    if len(stripped_para) < 4 and filtered_paragraphs:
                         filtered_paragraphs[-1] += ' ' + stripped_para
                     else:
                         filtered_paragraphs.append(stripped_para)
-            
             with open(out_file, 'w', encoding='utf-8') as f:
                 json.dump(filtered_paragraphs, f, ensure_ascii=False, indent=4)
     
     # Start conversion of books
     for filename in os.listdir(BIN_DIR):
         if filename.endswith('.json') and not filename.endswith('_chunk_info.json') and not filename.endswith('_converted.json'):
-            start_conversion_of_book(filename)
+            start_conversion_of_book(filename, context_limit)
 
     clear_bin_dir()
 
