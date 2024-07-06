@@ -137,7 +137,8 @@ Using all the information above, think about:
 
 Respond using JSON.
 
-### Response"""
+### Response:
+"""
 
     ConversionGrammar = """Line1 ::= "{" space Line1-action-kv "," space Line1-talking-to-kv "," space Line1-speaker-kv "}" space
 Line1-action-kv ::= "\\"action\\"" space ":" space string
