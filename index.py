@@ -39,9 +39,9 @@ if KOBOLDAPI.endswith('/'):
 
 if DEBUG:
     print("Debug mode is enabled.")
-    print(f"Trying to load entity detection model {ENTITY_DETECTION_MODEL}, if this step fails edit config.yaml")
 
 # load tagger
+print(f"Trying to load entity detection model {ENTITY_DETECTION_MODEL}, if this step fails edit config.yaml")
 tagger = SequenceTagger.load(ENTITY_DETECTION_MODEL)
 
 if DEBUG:
