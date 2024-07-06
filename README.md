@@ -19,7 +19,7 @@ The awakening by L C Ainsworth - kukulemon 7B Q8_0 @ 4096 context ([chatml](exam
 1. run `git clone https://github.com/statchamber/ebook-to-chatml-conversion.git`
 2. install [koboldcpp](https://github.com/LostRuins/koboldcpp/releases/) and load a gguf model with at least 4096 context
 3. install dependencies `pip install -r requirements.txt`
-4. edit [config.yaml](Conversion/config.yaml) and change settings for example `max_convert` to how many paragraphs you want to convert
+4. edit [config.yaml](config.yaml) and change settings for example `max_convert` to how many paragraphs you want to convert
 5. Create a folder called `./ebooks` and put your ebooks in it
 6. run `python index.py` and the results should show up in `./output`
 ## config help
