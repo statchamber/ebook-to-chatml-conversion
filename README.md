@@ -19,7 +19,7 @@ this tool converts ebooks (in .txt or .epub format) into both dialogue based and
 ## config help
 - chunk: decrease chunk.size and chunk.context if you are using lower context like 4096. increase it if you are using higher values like 32k.
 - api: you can use gemini from google to speed up summarization. get the api key here: https://aistudio.google.com/app/apikey
-## examples
+## examples (200 lines)
 Killed Once, Lived Twice by Gary Whitmore - kunoichi dpo v2 7B Q8_0 @ 8192 context ([chatml](examples/Killed-Once-Lived-Twice_chatml.txt) | [regular](examples/Killed-Once-Lived-Twice_converted.txt))
 
 Drone World by Jim Kochanoff - gemma 2 9B @ 8192 context ([chatml](examples/Drone-World_chatml.txt) | [regular](examples/Drone-World_converted.txt))
