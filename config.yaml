@@ -14,7 +14,7 @@ character:
   # Adding custom names may not guarantee the use by the AI
 
 entity_detection:
-  model: "flair/ner-english-large"  # Use "flair/ner-english-fast" if program is slow, crashes or if you have low VRAM
+  model: "flair/ner-english-large"  # Use "flair/ner-english-fast" if program is slow, crashes or if you have low resources
   confidence: 0.9    # Lower: more false detections; Higher: might miss characters (for "ner-english-large" use 0.9, for "ner-english-fast" use 0.5)
 
 api:

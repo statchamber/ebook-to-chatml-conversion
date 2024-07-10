@@ -39,12 +39,20 @@ def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMA
                 speakers_list.append(similar_speaker)
             return similar_speaker
         else:
-            # Extract character number or use "Unknown"
-            character_number = re.search(r'character_(\d+)', speaker.lower())
-            speaker = f"Character_{character_number.group(1)}" if character_number else "Unknown"
-            if update and speaker not in speakers_list:
-                speakers_list.append(speaker)
-            return speaker
+            # Special case for 's (possession)
+            character_match = re.search(r'Character_(\d+)\'s\s+(.+)', speaker)
+            if character_match:
+                new_speaker = character_match.group(2).capitalize()
+                if update and new_speaker not in speakers_list:
+                    speakers_list.append(new_speaker)
+                return new_speaker
+            else:
+                # Extract character number or use "Unknown"
+                character_number = re.search(r'character_(\d+)', speaker.lower())
+                speaker = f"Character_{character_number.group(1)}" if character_number else "Unknown"
+                if update and speaker not in speakers_list:
+                    speakers_list.append(speaker)
+                return speaker
         
     # For shorter stories    
     total_detected = len(paragraphs)
