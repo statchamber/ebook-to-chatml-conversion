@@ -20,9 +20,9 @@ Narrator: Michael looked like he lacked the lust for life and hadn't slept in da
 Narrator: He glanced at a Barbourville Times newspaper on his table. It was placed next to four empty glasses. His fifth glass of whiskey and water was next to a pack of Marlboro cigarettes, lighter and an ashtray with five cigarette butts.
 Michael: Michael picked up the glass and took a drink. He set the glass down and continued to look depressed at a newspaper article.
 Narrator: The article had the "Local Woman Shot and Drowned In Brandywine Lake" headline.
-Michael: The article also had a black and white photo of Jennifer, his twenty-seven-year-old fiancé. She had black hair in a Bouffant hairstyle and wore black cat eyeglasses. She was a beautiful woman with light blue eyes, a warm smile.
+Narrator: The article also had a black and white photo of Jennifer, his twenty-seven-year-old fiancé. She had black hair in a Bouffant hairstyle and wore black cat eyeglasses. She was a beautiful woman with light blue eyes, a warm smile.
 Michael: Michael's eyes welled up while he glanced at Jennifer's photo.   He smashed his cigarette into the ashtray.
-Kenneth: Kenneth in a black suit, white shirt, and white tie and Fedora hat in hand walked up to Michel's booth smoking a Lucky Strike cigarette.
+Narrator: Kenneth in a black suit, white shirt, and white tie and Fedora hat in hand walked up to Michel's booth smoking a Lucky Strike cigarette.
 Narrator: Kenneth was a twenty-seven-year-old unattractive man with thinning hair. He had acne pot marks on both cheeks and a four-inch scab across the middle of his forehead.
 Kenneth: Kenneth frowned at the sight of Michael drinking alone at the lounge. "Are you going to live at Shumaker's for now on?" Kenneth asked while he sat down in the booth across from Michael. Kenneth took another drag on his cigarette then put it out in the ashtray.
 Michael: "Maybe," Michael replied without taking his eyes off the newspaper article.
@@ -39,8 +39,8 @@ Michael: "Who would shoot at her then force her car off the bridge and into the 
 Kenneth: "I know," Kenneth replied, then avoided looking at the newspaper article. He grabbed one of his shot glasses and downed the whiskey.
 Michael: "And why was she driving to the cabin so late at night? That doesn't make any sense," Michael said while he looked at Kenneth with tears running down his cheeks.
 Kenneth: "I don't know buddy," Kenneth replied then grabbed the second shot glass and downed the whiskey.
-Kenneth: "She drowned. She was terrified of being in the water. She drowned," he said while his eyes welled up.
-Michael: Michael looked at Kenneth. "How did you get that cut on your forehead?" he asked as he forgot.
+Michael: "She drowned. She was terrified of being in the water. She drowned," he said while his eyes welled up.
+Kenneth: Michael looked at Kenneth. "How did you get that cut on your forehead?" he asked as he forgot.
 Kenneth: "A drunk the other night," said Kenneth then he looked worried about something while he took the third shot glass and downed the whiskey.
 Michael: "Barbourville has been a nice place to live with hardly any major crimes. I can't remember anybody being murdered during my lifetime," Michael said while he looked at Kenneth for answers.
 Kenneth: "Like I said, buddy, I'll use all my energy to find her killer. I promise."
@@ -68,14 +68,14 @@ Narrator: The sun started to sink below the horizon to signal the end of another
 Narrator: A 2006 blue Cavalier with a Florida tag drove east on Amster Road at the posted speed limit of forty-five miles per hour.
 Narrator: Driving the Cavalier down Amster Road was twenty-seven year old Abby.
 Narrator: Abby was drop-dead gorgeous with a shapely body, shoulder-length blonde hair, soft brown eyes and a mole on her left upper lip. Abby did not wear make-up since she was a natural beauty.
-Narrator: In the backseat of the Cavalier was three cardboard boxes taped up.
-Narrator: Inside the trunk were three more cardboard boxes, a rolled-up sleeping bag, a rolled-up movie poster.
-Narrator: The six boxes all contained her belongings from her life in Florida.
-Narrator: She enjoyed the beautiful rolling hilly countryside while she drove down Amster Road.   This was a nice switch from the flat land of Florida.
-Narrator: She sang along to a classic radio station she found. The Chubby Checker song The Twist played, and she performed a seated version of The Twist while she drove.
+Abby: In the backseat of the Cavalier was three cardboard boxes taped up.
+Abby: Inside the trunk were three more cardboard boxes, a rolled-up sleeping bag, a rolled-up movie poster.
+Abby: The six boxes all contained her belongings from her life in Florida.
+Abby: She enjoyed the beautiful rolling hilly countryside while she drove down Amster Road.   This was a nice switch from the flat land of Florida.
+Abby: She sang along to a classic radio station she found. The Chubby Checker song The Twist played, and she performed a seated version of The Twist while she drove.
 Narrator: Ten minutes later, Abby drove her car down Amster Road and came upon a concrete bridge with the "Brandywine Lake" sign at the entrance.
-Narrator: Abby drove her car across the bridge and checked out the beautiful blue water of the lake.
-Narrator: After she drove off the bridge, she drove a little way down the road and saw a dirt road off to the right. This dirt road led down to a sandy shore area of the lake that people used for swimming.
+Abby: Abby drove her car across the bridge and checked out the beautiful blue water of the lake.
+Abby: After she drove off the bridge, she drove a little way down the road and saw a dirt road off to the right. This dirt road led down to a sandy shore area of the lake that people used for swimming.
 Abby: She was starting to love the Pennsylvania countryside so far.
 Narrator: Eight minutes later and Abby drove her Cavalier got closer to Barbourville.
 Abby: Just before the bend to the right, Abby spotted a restaurant called the "Brandywine Restaurant" off to the right of the road. It looked like a nice quaint restaurant, and she thought about eating there sometime since it was opened for breakfast, lunch, and dinner.
@@ -86,8 +86,8 @@ Abby: A little while later, Abby entered a room on the top floor of the Holiday 
 Abby: She placed her suitcase on one of the queen-sized beds.
 Abby: She plopped down on the other queen-sized bed. She was exhausted from the two-day drive up from Florida, so she was asleep in minutes.
 Narrator: Hours had passed and Wednesday morning arrived.
-Narrator: Abby slept under the covers in her hotel room bed.
-Narrator: The digital alarm clock on the bedside table blared that annoying sound we all hate to hear in our sleep. The clock showed it was eight-thirty that morning.
+Abby: Abby slept under the covers in her hotel room bed.
+Abby: The digital alarm clock on the bedside table blared that annoying sound we all hate to hear in our sleep. The clock showed it was eight-thirty that morning.
 Narrator: Next to the clock was the "Snows Of Kilimanjaro And Other Stories" book by Ernest Hemingway. The bookmark was located at the beginning of the book.
 Narrator: Abby stirred in bed.
 Narrator: The alarm continued to blare.
@@ -133,7 +133,7 @@ Abby: "I'll be here a little before seven-thirty."
 Bowman: Dr. Bowman opened his office door for Abby and watched while she walked away through the office area.
 Bowman: He closed his office door.
 Bowman: "She sure looks familiar," he said while he walked back to his desk.
-Narrator: Abby walked into the Human Resources Department in the Administration building.
+Abby: Abby walked into the Human Resources Department in the Administration building.
 Maris: "May I help you?" asked seventy-six-year-old white-haired Maris from behind a desk.
 Abby: Abby looked at Maris. "Doctor Bowman just hired me, and he said I needed to fill out some paperwork," Abby said.
 Maris: "Ah yes, I just received his email a few minutes ago. You must be Abby. Please have a seat at that table," Maris said while she grabbed a folder and stood up from behind her desk,
@@ -141,7 +141,7 @@ Abby: Abby walked over to the table on the other side of the room. She sat down
 Maris: Maris walked over and handed Abby the folder. "Inside this folder contains policy and benefits information about the college. On the computer, you'll find job application and other needed forms to complete. You can print it out, sign them and bring it back to me," Maris said.
 Abby: "Thank you," Abby replied while she looked up at Maris.
 Maris: Maris got a good look at Abby, and her eyes widened a little.
-Maris: Maris walked away, and Abby opened up the folder and glanced at the contents.
+Abby: Maris walked away, and Abby opened up the folder and glanced at the contents.
 Maris: Maris sat down behind her desk. She looks familiar. She thought to herself, then shrugged off that feeling and returned to her work.
 Abby: Abby opened up the Word file job application on the computer and started typing in her information.
 Abby: Two hours later, Abby, with a Barbourville College employee badge clipped to her blouse, walked through the Barbourville College campus. The campus was more prominent than what she expected and loved the landscaping with large shade trees.
@@ -188,7 +188,7 @@ Abby: Abby looked at the iMac and looked a little confused. "Where's the power b
 Bowman: "It's in the back, lower left," Dr. Bowman called out from his office.
 Abby: Abby felt around the lower left of the iMac then found it. She pressed the button, and the iMac started up.
 Abby: It took a few seconds for the iMac to be up and running. Abby started navigating through the iMac to get familiar with the new computer.
-Narrator: An hour passed, and Abby had her meeting with Dr. Bowman, and she started working on typing a few letters in Word.
+Abby: An hour passed, and Abby had her meeting with Dr. Bowman, and she started working on typing a few letters in Word.
 Bowman: Dr. Bowman walked out of his office with an old and faded brown leather attaché tucked under his left arm.
 Bowman: "I'm on my way to my class," he said while he walked past Abby.
 Abby: Abby nodded that she heard him and continued with her typing.
