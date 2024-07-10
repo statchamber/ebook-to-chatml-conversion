@@ -22,13 +22,12 @@ He glanced at a Barbourville Times newspaper on his table. It was placed next t
 <|im_start|>Michael
 Michael picked up the glass and took a drink. He set the glass down and continued to look depressed at a newspaper article.<|im_end|>
 <|im_start|>Narrator
-The article had the "Local Woman Shot and Drowned In Brandywine Lake" headline.<|im_end|>
+The article had the "Local Woman Shot and Drowned In Brandywine Lake" headline.
+The article also had a black and white photo of Jennifer, his twenty-seven-year-old fiancé. She had black hair in a Bouffant hairstyle and wore black cat eyeglasses. She was a beautiful woman with light blue eyes, a warm smile.<|im_end|>
 <|im_start|>Michael
-The article also had a black and white photo of Jennifer, his twenty-seven-year-old fiancé. She had black hair in a Bouffant hairstyle and wore black cat eyeglasses. She was a beautiful woman with light blue eyes, a warm smile.
 Michael's eyes welled up while he glanced at Jennifer's photo.   He smashed his cigarette into the ashtray.<|im_end|>
-<|im_start|>Kenneth
-Kenneth in a black suit, white shirt, and white tie and Fedora hat in hand walked up to Michel's booth smoking a Lucky Strike cigarette.<|im_end|>
 <|im_start|>Narrator
+Kenneth in a black suit, white shirt, and white tie and Fedora hat in hand walked up to Michel's booth smoking a Lucky Strike cigarette.
 Kenneth was a twenty-seven-year-old unattractive man with thinning hair. He had acne pot marks on both cheeks and a four-inch scab across the middle of his forehead.<|im_end|>
 <|im_start|>Kenneth
 Kenneth frowned at the sight of Michael drinking alone at the lounge. "Are you going to live at Shumaker's for now on?" Kenneth asked while he sat down in the booth across from Michael. Kenneth took another drag on his cigarette then put it out in the ashtray.<|im_end|>
@@ -59,11 +58,11 @@ Nancy walked back to the booth with her tray in hand. She placed three shots of
 <|im_start|>Michael
 "And why was she driving to the cabin so late at night? That doesn't make any sense," Michael said while he looked at Kenneth with tears running down his cheeks.<|im_end|>
 <|im_start|>Kenneth
-"I don't know buddy," Kenneth replied then grabbed the second shot glass and downed the whiskey.
-"She drowned. She was terrified of being in the water. She drowned," he said while his eyes welled up.<|im_end|>
+"I don't know buddy," Kenneth replied then grabbed the second shot glass and downed the whiskey.<|im_end|>
 <|im_start|>Michael
-Michael looked at Kenneth. "How did you get that cut on your forehead?" he asked as he forgot.<|im_end|>
+"She drowned. She was terrified of being in the water. She drowned," he said while his eyes welled up.<|im_end|>
 <|im_start|>Kenneth
+Michael looked at Kenneth. "How did you get that cut on your forehead?" he asked as he forgot.
 "A drunk the other night," said Kenneth then he looked worried about something while he took the third shot glass and downed the whiskey.<|im_end|>
 <|im_start|>Michael
 "Barbourville has been a nice place to live with hardly any major crimes. I can't remember anybody being murdered during my lifetime," Michael said while he looked at Kenneth for answers.<|im_end|>
@@ -103,16 +102,18 @@ Forty-nine years had passed, and it was now Tuesday, May 4th, 2010 in Pennsylvan
 The sun started to sink below the horizon to signal the end of another beautiful day.
 A 2006 blue Cavalier with a Florida tag drove east on Amster Road at the posted speed limit of forty-five miles per hour.
 Driving the Cavalier down Amster Road was twenty-seven year old Abby.
-Abby was drop-dead gorgeous with a shapely body, shoulder-length blonde hair, soft brown eyes and a mole on her left upper lip. Abby did not wear make-up since she was a natural beauty.
+Abby was drop-dead gorgeous with a shapely body, shoulder-length blonde hair, soft brown eyes and a mole on her left upper lip. Abby did not wear make-up since she was a natural beauty.<|im_end|>
+<|im_start|>Abby
 In the backseat of the Cavalier was three cardboard boxes taped up.
 Inside the trunk were three more cardboard boxes, a rolled-up sleeping bag, a rolled-up movie poster.
 The six boxes all contained her belongings from her life in Florida.
 She enjoyed the beautiful rolling hilly countryside while she drove down Amster Road.   This was a nice switch from the flat land of Florida.
-She sang along to a classic radio station she found. The Chubby Checker song The Twist played, and she performed a seated version of The Twist while she drove.
-Ten minutes later, Abby drove her car down Amster Road and came upon a concrete bridge with the "Brandywine Lake" sign at the entrance.
-Abby drove her car across the bridge and checked out the beautiful blue water of the lake.
-After she drove off the bridge, she drove a little way down the road and saw a dirt road off to the right. This dirt road led down to a sandy shore area of the lake that people used for swimming.<|im_end|>
+She sang along to a classic radio station she found. The Chubby Checker song The Twist played, and she performed a seated version of The Twist while she drove.<|im_end|>
+<|im_start|>Narrator
+Ten minutes later, Abby drove her car down Amster Road and came upon a concrete bridge with the "Brandywine Lake" sign at the entrance.<|im_end|>
 <|im_start|>Abby
+Abby drove her car across the bridge and checked out the beautiful blue water of the lake.
+After she drove off the bridge, she drove a little way down the road and saw a dirt road off to the right. This dirt road led down to a sandy shore area of the lake that people used for swimming.
 She was starting to love the Pennsylvania countryside so far.<|im_end|>
 <|im_start|>Narrator
 Eight minutes later and Abby drove her Cavalier got closer to Barbourville.<|im_end|>
@@ -125,9 +126,11 @@ A little while later, Abby entered a room on the top floor of the Holiday with h
 She placed her suitcase on one of the queen-sized beds.
 She plopped down on the other queen-sized bed. She was exhausted from the two-day drive up from Florida, so she was asleep in minutes.<|im_end|>
 <|im_start|>Narrator
-Hours had passed and Wednesday morning arrived.
+Hours had passed and Wednesday morning arrived.<|im_end|>
+<|im_start|>Abby
 Abby slept under the covers in her hotel room bed.
-The digital alarm clock on the bedside table blared that annoying sound we all hate to hear in our sleep. The clock showed it was eight-thirty that morning.
+The digital alarm clock on the bedside table blared that annoying sound we all hate to hear in our sleep. The clock showed it was eight-thirty that morning.<|im_end|>
+<|im_start|>Narrator
 Next to the clock was the "Snows Of Kilimanjaro And Other Stories" book by Ernest Hemingway. The bookmark was located at the beginning of the book.
 Abby stirred in bed.
 The alarm continued to blare.<|im_end|>
@@ -195,7 +198,7 @@ Dr. Bowman walked Abby to his office door.
 Dr. Bowman opened his office door for Abby and watched while she walked away through the office area.
 He closed his office door.
 "She sure looks familiar," he said while he walked back to his desk.<|im_end|>
-<|im_start|>Narrator
+<|im_start|>Abby
 Abby walked into the Human Resources Department in the Administration building.<|im_end|>
 <|im_start|>Maris
 "May I help you?" asked seventy-six-year-old white-haired Maris from behind a desk.<|im_end|>
@@ -210,8 +213,10 @@ Maris walked over and handed Abby the folder. "Inside this folder contains polic
 <|im_start|>Abby
 "Thank you," Abby replied while she looked up at Maris.<|im_end|>
 <|im_start|>Maris
-Maris got a good look at Abby, and her eyes widened a little.
-Maris walked away, and Abby opened up the folder and glanced at the contents.
+Maris got a good look at Abby, and her eyes widened a little.<|im_end|>
+<|im_start|>Abby
+Maris walked away, and Abby opened up the folder and glanced at the contents.<|im_end|>
+<|im_start|>Maris
 Maris sat down behind her desk. She looks familiar. She thought to herself, then shrugged off that feeling and returned to her work.<|im_end|>
 <|im_start|>Abby
 Abby opened up the Word file job application on the computer and started typing in her information.
@@ -270,8 +275,7 @@ Abby looked at the iMac and looked a little confused. "Where's the power button?
 "It's in the back, lower left," Dr. Bowman called out from his office.<|im_end|>
 <|im_start|>Abby
 Abby felt around the lower left of the iMac then found it. She pressed the button, and the iMac started up.
-It took a few seconds for the iMac to be up and running. Abby started navigating through the iMac to get familiar with the new computer.<|im_end|>
-<|im_start|>Narrator
+It took a few seconds for the iMac to be up and running. Abby started navigating through the iMac to get familiar with the new computer.
 An hour passed, and Abby had her meeting with Dr. Bowman, and she started working on typing a few letters in Word.<|im_end|>
 <|im_start|>Bowman
 Dr. Bowman walked out of his office with an old and faded brown leather attaché tucked under his left arm.
