@@ -28,5 +28,3 @@ The awakening by L C Ainsworth - kukulemon 7B Q8_0 @ 4096 context ([chatml](exam
 ## config help
 - chunk: decrease chunk.context if you are using lower context like 4096. increase it if you are using higher values like 32k. the more context lines you add, the less the AI will make mistakes. but, it will generate slower as it takes up more tokens
 - api: you can use gemini from google to speed up summarization. get the api key here: https://aistudio.google.com/app/apikey
-##
-if this was useful to you in any way, please star this repo as it keeps me motivated to update this script and i think it allows more people to see it
