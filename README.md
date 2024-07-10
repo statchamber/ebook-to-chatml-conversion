@@ -7,14 +7,17 @@ Killed Once, Lived Twice by Gary Whitmore - kunoichi dpo v2 7B Q8_0 @ 8192 conte
 Drone World by Jim Kochanoff - gemma 2 9B @ 8192 context ([chatml](examples/Drone-World_chatml.txt) | [regular](examples/Drone-World_converted.txt))
 
 The awakening by L C Ainsworth - kukulemon 7B Q8_0 @ 4096 context ([chatml](examples/The-awakening-Dark-Passenger_chatml.txt) | [regular](examples/The-awakening-Dark-Passenger_converted.txt))
-## how does it work?
-1. get text from ./ebooks (.txt or .epub)
-2. breaks text into chunks
-3. finds character names using AI and replace them with masked names
-4.  creates short summaries of each chunk
-5. using gbnf grammar and a summary, convert each chunk to dialogue format
-6. turns masked names back into the original character names
-7.  saves as plain text and chatml format
+## how does it work in 10 steps?
+1. load book text (.txt or .epub) into a json ile
+2. break the text into smaller chunks (5 lines at a time)
+3. detect character names and aliases using an entity detection model and mask them with generic labels (Character_1, Character_2, etc)
+4. create summaries of text occasionally to use in prompts and to improve accuracy
+5. add context lines to the start and end of each chunk to improve accuracy
+6. label/convert each chunk using few-shot prompts and GBNF grammar
+7. process the converted text
+8. track progress and give eta
+9. unmask character names, replacing the generic lables with original names
+10. save the converted lines in both plaintext and chatml format
 ## setup
 1. run `git clone https://github.com/statchamber/ebook-to-chatml-conversion.git`
 2. install [koboldcpp](https://github.com/LostRuins/koboldcpp/releases/) and load a gguf model with at least 4096 context
@@ -23,5 +26,7 @@ The awakening by L C Ainsworth - kukulemon 7B Q8_0 @ 4096 context ([chatml](exam
 5. Create a folder called `./ebooks` and put your ebooks in it
 6. run `python index.py` and the results should show up in `./output`
 ## config help
-- chunk: decrease chunk.size and chunk.context if you are using lower context like 4096. increase it if you are using higher values like 32k.
+- chunk: decrease chunk.context if you are using lower context like 4096. increase it if you are using higher values like 32k. the more context lines you add, the less the AI will make mistakes. but, it will generate slower as it takes up more tokens
 - api: you can use gemini from google to speed up summarization. get the api key here: https://aistudio.google.com/app/apikey
+##
+if this was useful to you in any way, please star this repo as it keeps me motivated to update this script and i think it allows more people to see it

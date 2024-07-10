@@ -2,7 +2,7 @@ class Prompts:
     SummarizationPrompt = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
-Summarize the given story content in chronological order, focusing the summary on the actions of the relevant characters/speakers. Limit the summary to 100 words or less.
+Summarize the given story content in chronological order, focusing the summary on the actions of the relevant characters/speakers. If a previous summary is given, build onto that summary. Limit the summary to 100 words or less.
 
 ### Input:
 Relevant Characters: Character_1, Character_2
@@ -80,13 +80,13 @@ List of characters: Character_1, Character_2
 Summary: Character_1, working on Character_2's property, waited for his boss while finishing chores. When Character_2 arrived, he gave Character_1 some mail and praised his work on the fence. Character_1, who enjoyed his isolated life, wondered about the need for a holiday. Character_2 mentioned bringing his troubled son to the property, appreciating its lack of distractions. As they looked over the land, Character_1 thought about the potential trouble a skilled rider could get into and the challenges an inexperienced boy might face.
 Story Excerpt:
 ```
-Character_1: Character_1 squinted against the sun at the distant dust trail raked up by the car on its way up to the Big House. The horses kicked and flicked their tails at flies, not caring about their owner's first visit in ten months. Character_1 waited. Mr Character_2 didn't come out here unless he had to, which was just fine by Character_1. The more he kept out of his boss's way, the longer he'd have a job.
-Character_2: Character_2 came by later while Character_1 was chopping wood. Character_2 lifted his hat as if he were waiting for an appointment with the town priest, and then removed it completely as if he were talking to his mother. He pulled out a pile of paper from his back pocket and held it out.
-Character_2: "Don't pick up your mail often, do you?"
-Character_1: Character_1 took it without a glance and dropped the envelopes onto the bench.
-"Character_1: Never," he replied and waited for Character_2 to say why he was here. The fact it was Character_2's house was no explanation and they both knew it. Character_2 twisted his hat round and round, licking his lips and clearing his throat.
-Character_2: "Nice work fixing those fences," he said finally.
-Character_1: "I'll be back to the beginning soon," Character_1 said. It wasn't a complaint. A fence that took a year to repair meant another year's work to the man who did it well.
+Character_1 talking to himself (Character_1 thinks about Character_2 coming to the Big house): Character_1 squinted against the sun at the distant dust trail raked up by the car on its way up to the Big House. The horses kicked and flicked their tails at flies, not caring about their owner's first visit in ten months. Character_1 waited. Mr Character_2 didn't come out here unless he had to, which was just fine by Character_1. The more he kept out of his boss's way, the longer he'd have a job.
+Character_2 talking to Character_1 (Character_2 approaches Character_1 with his mail): Character_2 came by later while Character_1 was chopping wood. Character_2 lifted his hat as if he were waiting for an appointment with the town priest, and then removed it completely as if he were talking to his mother. He pulled out a pile of paper from his back pocket and held it out.
+Character_2 talking to Character_1 (Character_2 asks Character_1 a question): "Don't pick up your mail often, do you?"
+Character_1 talking to Character_2 (Character_1 takes the mail and drops it): Character_1 took it without a glance and dropped the envelopes onto the bench.
+Character_1 talking to Character_2 (Character_1 responding to Character_2): "Never," he replied and waited for Character_2 to say why he was here. The fact it was Character_2's house was no explanation and they both knew it. Character_2 twisted his hat round and round, licking his lips and clearing his throat.
+Character_2 talking to Character_1 (Character_2 gives feedback on the fences Character_1 fixed): "Nice work fixing those fences," he said finally.
+Character_1 talking to Character_2 (Character_1 responds to the feedback): "I'll be back to the beginning soon," Character_1 said. It wasn't a complaint. A fence that took a year to repair meant another year's work to the man who did it well.
 "Don't you ever want to take a holiday?"
 "And go where?" A holiday meant being back out in the real world, a place even people like Character_2 travelled to escape from. Character_1's escape was his reality and he wasn't going back.
 Mr Character_2 wiped the sweat from the back of his neck. The damp patches on his shirt drew together like shapes in an atlas. His skin was already turning ruddy in the June sun. Otherwise he had the indoor tan of a man that made money while other people did the work.
@@ -99,7 +99,7 @@ Line1: "Don't you ever want to take a holiday?"
 Line2: "And go where?" A holiday meant being back out in the real world, a place even people like Character_2 travelled to escape from. Character_1's escape was his reality and he wasn't going back.
 
 Using all the information above, think about:
-1. What action or dialogue in the line is the speaker doing/talking about?
+1. What action or dialogue in the line is the speaker doing/talking/thinking about? Is it a thought process?
 2. Who is the line talking to? Is it a group of people or just one person? If the character is unnnamed, use a collective term, for example a group name/species. Use the story excerpt context clues for this.
 3. Who said/acted the line based on the story excerpt and by looking for phrases like "Character_1 said" or "Character_2 smiled"
 
@@ -131,7 +131,7 @@ Extracted Lines:
 {extracted_lines}
 
 Using all the information above, think about:
-1. What action or dialogue in the line is the speaker doing/talking about?
+1. What action or dialogue in the line is the speaker doing/talking/thinking about? Is it a thought process?
 2. Who is the line talking to? Is it a group of people or just one person? If the character is unnnamed, use a collective term, for example a group name/species. Use the story excerpt context clues for this.
 3. Who said/acted the line based on the story excerpt and by looking for phrases like "Character_1 said" or "Character_2 smiled"
 

@@ -47,7 +47,7 @@ def kobold_generate_text(prompt, temperature, grammar, max_length, max_token_cou
 
 def gemini_generate_text(prompt, conversation_history, GEMINI, STOP_SEQUENCES):
     if GEMINI == "":
-        raise ValueError("Gemini API is not set")
+        raise ValueError("Gemini API is not set but you have gemini: true in config.yaml")
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
     headers = {'Content-Type': 'application/json'}
@@ -97,18 +97,19 @@ def gemini_generate_text(prompt, conversation_history, GEMINI, STOP_SEQUENCES):
 
             result = response.json()
             if 'candidates' in result and result['candidates']:
-                return result['candidates'][0]['content']['parts'][0]['text'].strip()
-            else:
-                if attempt < 9:  # If it's not the last attempt
-                    time.sleep(1)  # Wait for 1 second before retrying
-                    continue
-                else:
-                    return "No response generated after 10 attempts."
-        except requests.exceptions.RequestException:
-            if attempt < 9:  # If it's not the last attempt
+                candidate = result['candidates'][0]
+                if 'content' in candidate and 'parts' in candidate['content']:
+                    return candidate['content']['parts'][0]['text'].strip()
+            
+            if attempt < 9:
                 time.sleep(1)  # Wait for 1 second before retrying
             else:
-                raise  # Re-raise the exception if all attempts failed
+                return "Failed"
+        except requests.exceptions.RequestException as e:
+            if attempt < 9:
+                time.sleep(1)  # Wait for 1 second before retrying
+            else:
+                return "Failed"
 
 def get_koboldai_context_limit(KOBOLDAPI):
     attempts = 0

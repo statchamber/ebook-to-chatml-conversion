@@ -22,22 +22,28 @@ from Conversion.conversion_logic import start_conversion_of_book
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
-PARAGRAPH_CHUNK_SIZE = config.get('chunk', {}).get('size', 20)
 CONTEXT_PARAGRAPHS = config.get('chunk', {}).get('context', 20)
 MAX_PARAGRAPHS_TO_CONVERT = config.get('chunk', {}).get('max_convert', 40)
-ADD_NARRATOR_TO_CHARACTERLIST = config.get('character', {}).get('narrator', True)
-ADD_UNKNOWN_TO_CHARACTERLIST = config.get('character', {}).get('unknown', True)
 CONFIDENCE = config.get('entity_detection', {}).get('confidence', 0.4)
 ENTITY_DETECTION_MODEL = config.get('entity_detection', {}).get('model', "flair/ner-english-large")
 KOBOLDAPI = config.get('api', {}).get('kobold', "https://127.0.0.1:5001/api/")
 GEMINI = config.get('api', {}).get('gemini', "")
 USE_GEMINI_SUMMARIZATION = config.get('summarization', {}).get('gemini', True)
+SUMMARIZE_EVERY = config.get('summarization', {}).get('summarize_every', 10)
 DEBUG = config.get('other', {}).get('debug', False)
 EBOOKS_DIR = "./ebooks"
 BIN_DIR = "./bin"
 OUTPUT_DIR = "./output"
 STOP_SEQUENCES = ["### Input:", "Previous Summaries:"]
 SIMILARITY_THRESHOLD = 0.6  # 60% similarity for name matching
+
+# Convert character names from config to a list
+CHARACTER_LIST = []
+for char_name, include in config.get('character', {}).items():
+    if include:
+        words = char_name.replace('_', ' ').split()
+        capitalized_name = ' '.join(word.capitalize() for word in words)
+        CHARACTER_LIST.append(capitalized_name)
 
 if KOBOLDAPI.endswith('/'):
     KOBOLDAPI = KOBOLDAPI[:-1]
@@ -70,7 +76,7 @@ def main():
     # Start conversion of books
     for filename in os.listdir(BIN_DIR):
         if filename.endswith('.json') and not filename.endswith('_chunk_info.json') and not filename.endswith('_converted.json'):
-            start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, PARAGRAPH_CHUNK_SIZE, MAX_PARAGRAPHS_TO_CONVERT, CONTEXT_PARAGRAPHS, ADD_NARRATOR_TO_CHARACTERLIST, ADD_UNKNOWN_TO_CHARACTERLIST, CONFIDENCE, USE_GEMINI_SUMMARIZATION, DEBUG, SIMILARITY_THRESHOLD, tagger, KOBOLDAPI, GEMINI, STOP_SEQUENCES)
+            start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMARIZE_EVERY, MAX_PARAGRAPHS_TO_CONVERT, CONTEXT_PARAGRAPHS, CHARACTER_LIST, CONFIDENCE, USE_GEMINI_SUMMARIZATION, DEBUG, SIMILARITY_THRESHOLD, tagger, KOBOLDAPI, GEMINI, STOP_SEQUENCES)
 
     clear_bin_dir(BIN_DIR)
 
