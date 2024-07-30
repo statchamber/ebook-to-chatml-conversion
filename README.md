@@ -1,6 +1,6 @@
 # ebook to chatml conversion tool
 ## description
-this tool converts ebooks (in .txt or .epub format) into dialogue based and chatml formatted groupchats. you can then use this format for creating datasets. this script uses [koboldcpp](https://github.com/LostRuins/koboldcpp/releases) for gbnf and alpaca for all of the prompts, which can be seen in [prompts.py](Conversion/prompts.py). the script works decently well with 7B models but requires some editing. note that you can use this script with any context size you want (4096, 8192, or even 32K context size) by editing [config.yaml](config.yaml), but it is better to have 8192+ context.
+this tool converts ebooks (in .txt or .epub format) into dialogue based and chatml formatted groupchats. you can then use this format for creating datasets. you can either use [gemini](https://aistudio.google.com/app/apikey), OpenAI, or [koboldcpp](https://github.com/LostRuins/koboldcpp/releases). I recommend you use koboldcpp for gbnf and alpaca for all of the prompts, which can be seen in [prompts.py](Conversion/prompts.py). the script works decent with 7B models (see examples), but on models like gpt-4o it rarely gets speakers wrong. note that you can use this script with any context size you want (4096, 8192, or even 32K context size) by editing [config.yaml](config.yaml), but it is better to have 8192+ context.
 ## examples (200 lines)
 Killed Once, Lived Twice by Gary Whitmore - kunoichi dpo v2 7B Q8_0 @ 8192 context ([chatml](examples/Killed-Once-Lived-Twice_chatml.txt) | [regular](examples/Killed-Once-Lived-Twice_converted.txt))
 
@@ -18,13 +18,18 @@ The awakening by L C Ainsworth - kukulemon 7B Q8_0 @ 4096 context ([chatml](exam
 8. track progress and give eta
 9. unmask character names, replacing the generic lables with original names
 10. save the converted lines in both plaintext and chatml format
-## setup
+## setup (koboldcpp)
 1. run `git clone https://github.com/statchamber/ebook-to-chatml-conversion.git`
 2. install [koboldcpp](https://github.com/LostRuins/koboldcpp/releases/) and load a gguf model with at least 4096 context
 3. install dependencies `pip install -r requirements.txt`
 4. edit [config.yaml](config.yaml) and change settings for example `max_convert` to how many paragraphs you want to convert
 5. Create a folder called `./ebooks` and put your ebooks in it
 6. run `python index.py` and the results should show up in `./output`
+## setup (openai/gemini)
+1. run `git clone https://github.com/statchamber/ebook-to-chatml-conversion.git`
+2. install dependencies `pip install -r requirements.txt`
+3. edit [config.yaml](config.yaml) and change settings for example `max_convert` to how many paragraphs you want to convert
+4. Create a folder called `./ebooks` and put your ebooks in it
+5. run `python index.py` and the results should show up in `./output`
 ## config help
 - chunk: decrease chunk.context if you are using lower context like 4096. increase it if you are using higher values like 32k. the more context lines you add, the less the AI will make mistakes. but, it will generate slower as it takes up more tokens
-- api: you can use gemini from google to speed up summarization. get the api key here: https://aistudio.google.com/app/apikey

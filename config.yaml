@@ -1,25 +1,53 @@
-chunk:
-  context: 10         # Lines to add for context at the start and end of each chunk (multiple of 5)
-  max_convert: 40     # Max lines to convert (multiple of 5, use 1000000 for whole book)
+# you don't even need to change most of these settings besides api, summarization, and chunk.
+# then just put your books in ./ebooks/ and run the script.
+
+api:
+  openai:
+    enabled: false
+    api_key: "" # Your OpenAI API key
+    api_base: "" # Your OpenAI API base URL (optional)
+    model: "" # Specify the OpenAI model to use (For conversion)
+  kobold:
+    enabled: true
+    url: "http://localhost:5001/api/"
+  gemini:
+    enabled: false
+    api_key: "" # Your Gemini API key
+    model: "gemini-1.5-flash" # Specify the Gemini model to use (For conversion)
+    max_retries: 5 # Maximum number of retries
 
 summarization:
-  gemini: false  # Uses kobold to summarize if false
   summarize_every: 10  # Summarize every x lines (multiple of 5, maximum = chunk.context)
+  api:
+    openai:
+      enabled: false
+    kobold:
+      enabled: true
+    gemini:
+      enabled: false
+
+chunk:
+  context: 10 # Lines to add for context at the start and end of each chunk (multiple of 5)
+  max_convert: 40 # Max lines to convert (multiple of 5, use 1000000 for whole book)
+  max_retries: 3 # Maximum number of retries for converting chunk
 
 character:
-  narrator: true  # Include narrator in character list
-  unknown: true  # Include unknown in character list
+  narrator: true # Include narrator in character list
+  unknown: true # Include unknown in character list
   # Custom character names can be added here (ex: Ruby: true, firstname_lastname: true, y/n: true)
   # Only add names the AI doesn't automatically detect
   # Adding custom names may not guarantee the use by the AI
 
 entity_detection:
-  model: "flair/ner-english-large"  # Use "flair/ner-english-fast" if program is slow, crashes or if you have low resources
-  confidence: 0.9    # Lower: more false detections; Higher: might miss characters (for "ner-english-large" use 0.9, for "ner-english-fast" use 0.5)
+  model: "flair/ner-english-large" # Use "flair/ner-english-fast" if program is slow, crashes or if you have low resources
+  confidence: 0.9 # Lower: more false detections; Higher: might miss characters (for "ner-english-large" use 0.9, for "ner-english-fast" use 0.5)
 
-api:
-  kobold: "http://localhost:5001/api/"
-  gemini: "your api key"
+output:
+  regular: true # Regular readable format
+  chatml: true # ChatML format
+  technical: true # A json file with the technical details of the conversion, contaning summaries, actions, speakers, etc.
 
 other:
-  debug: false
+  debug: false # Enable debug mode
+  concurrent_stories: 1 # Number of stories to convert at a time
+  string_similarity: 0.6 # String similarity threshold for detecting the same character
