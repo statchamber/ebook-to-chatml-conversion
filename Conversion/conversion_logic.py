@@ -7,7 +7,6 @@ import threading
 from .text_processing import call_ner, string_similarity
 from .api_calls import generate_text, generate_summary_text
 from .prompts import Prompts
-import sys
 import shutil
 print_lock = threading.Lock()
 
@@ -22,7 +21,7 @@ def update_progress(story_name, percentage, time_index, total_detected, eta_hour
         progress_str = progress_str.ljust(terminal_width)[:terminal_width]
         print(f"\r{progress_str}", end="", flush=True)
 
-def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMARIZE_EVERY, MAX_PARAGRAPHS_TO_CONVERT, CONTEXT_PARAGRAPHS, CHARACTER_LIST, CONFIDENCE, USE_GEMINI_SUMMARIZATION, DEBUG, SIMILARITY_THRESHOLD, tagger, KOBOLDAPI, OPENAI_API_KEY, OPENAI_API_BASE, OPENAI_MODEL, GEMINI_API_KEY, STOP_SEQUENCES, config):
+def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMARIZE_EVERY, MAX_PARAGRAPHS_TO_CONVERT, CONTEXT_PARAGRAPHS, CHARACTER_LIST, CONFIDENCE, USE_GEMINI_SUMMARIZATION, DEBUG, SIMILARITY_THRESHOLD, KOBOLDAPI, OPENAI_API_KEY, OPENAI_API_BASE, OPENAI_MODEL, GEMINI_API_KEY, STOP_SEQUENCES, config):
     filename = os.path.splitext(filename)[0]
     safe_print("-"*100)
     safe_print(f"Starting conversion of book: {filename}")
@@ -98,13 +97,13 @@ def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMA
         unmasked_prompt = "\n".join(unmasked_prev_lines + unmasked_lines + unmasked_next_lines)
 
         # Detect and mask character names
-        detected_characters = call_ner(unmasked_prompt, tagger, CONFIDENCE)
+        detected_characters = call_ner(unmasked_prompt, CONFIDENCE)
         for character in detected_characters:
             if character['text'] not in [p['text'] for p in high_confidence_characters]:
                 high_confidence_characters.append(character)
                 masked_names[character['text']] = f"Character_{len(masked_names) + 1}"
             character_last_mentioned[character['text']] = i
-        
+
         # Check for possible aliases
         for i, character1 in enumerate(high_confidence_characters):
             for character2 in high_confidence_characters[i+1:]:
@@ -186,7 +185,8 @@ def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMA
                     safe_print(f"\n{conversionprompt}\n{'-'*100}{conversion}\n{'-'*100}")
                 break  # Successfully parsed JSON, exit the retry loop
             except json.JSONDecodeError:
-                safe_print(f"\nAttempt {attempt + 1}: JSONDecodeError. Retrying...")
+                if DEBUG:
+                    safe_print(f"\nAttempt {attempt + 1}: JSONDecodeError. Retrying...")
                 if attempt == max_retries - 1:
                     safe_print("Max retries reached. Using empty JSON.")
                     conversion_json = {}
@@ -195,7 +195,8 @@ def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMA
             try:
                 conversion_json["Line1"]["speaker"]
             except KeyError:
-                safe_print("KeyError: Line1")
+                if DEBUG:
+                    safe_print("KeyError: Line1")
                 if attempt == max_retries - 1:
                     safe_print("Max retries reached. Using empty JSON.")
                     conversion_json = {}

@@ -64,18 +64,23 @@ def openai_generate_text(prompt, temperature, max_tokens, api_key, api_base, mod
     if config['api']['openai']['enabled']:
         if api_base:
             openai.base_url = api_base
-    try:
-        response = openai.chat.completions.create(
-            model=model,
-            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}],
-            temperature=temperature,
-            max_tokens=max_tokens,
-            stop=stop_sequences
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        print(f"Error with OpenAI API: {e}")
-        return None
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            response = openai.chat.completions.create(
+                model=model,
+                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}],
+                temperature=temperature,
+                max_tokens=max_tokens,
+                stop=stop_sequences,
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            print(f"Error with OpenAI API (attempt {attempt + 1}/{max_retries}): {e}")
+            if attempt < max_retries - 1:
+                time.sleep(1)  # Wait for 1 second before retrying
+            else:
+                return None
 
 def gemini_generate_text(prompt, temperature, GEMINI_API_KEY, STOP_SEQUENCES, model):
     if not GEMINI_API_KEY:

@@ -3,17 +3,9 @@ import sys
 import yaml
 
 import concurrent.futures
-import threading
-from bs4 import BeautifulSoup
-from typing import List, Dict
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-from flair.data import Sentence
-from flair.models import SequenceTagger
-
-from Conversion.prompts import Prompts
-from Conversion.text_processing import call_ner, string_similarity
-from Conversion.api_calls import kobold_generate_text, gemini_generate_text, get_koboldai_context_limit
-from Conversion.file_operations import parse_epub, clear_bin_dir, extract_and_save_text
+from Conversion.api_calls import get_koboldai_context_limit
+from Conversion.file_operations import clear_bin_dir, extract_and_save_text
 from Conversion.conversion_logic import start_conversion_of_book
 
 # Disable TensorFlow warnings
@@ -26,7 +18,6 @@ with open('config.yaml', 'r') as file:
 CONTEXT_PARAGRAPHS = config.get('chunk', {}).get('context', 20)
 MAX_PARAGRAPHS_TO_CONVERT = config.get('chunk', {}).get('max_convert', 40)
 CONFIDENCE = config.get('entity_detection', {}).get('confidence', 0.4)
-ENTITY_DETECTION_MODEL = config.get('entity_detection', {}).get('model', "flair/ner-english-large")
 KOBOLDAPI = config.get('api', {}).get('kobold', {}).get('url', "http://localhost:5001/api/")
 GEMINI_API_KEY = config.get('api', {}).get('gemini', {}).get('api_key', "")
 USE_GEMINI_SUMMARIZATION = config.get('summarization', {}).get('api', {}).get('gemini', {}).get('enabled', False)
@@ -58,13 +49,6 @@ if OPENAI_API_BASE and not OPENAI_API_BASE.endswith('/'):
 if DEBUG:
     print("Debug mode is enabled.")
 
-# load tagger
-print(f"Trying to load entity detection model {ENTITY_DETECTION_MODEL}, if this step fails edit config.yaml")
-tagger = SequenceTagger.load(ENTITY_DETECTION_MODEL)
-
-if DEBUG:
-    print(f"{ENTITY_DETECTION_MODEL} loaded")
-
 def main():
     for directory in [BIN_DIR, EBOOKS_DIR, OUTPUT_DIR]:
         if not os.path.exists(directory):
@@ -89,7 +73,7 @@ def main():
     # Create a thread pool with the specified number of concurrent stories
     with concurrent.futures.ThreadPoolExecutor(max_workers=config['other']['concurrent_stories']) as executor:
         # Submit each file for processing
-        futures = [executor.submit(start_conversion_of_book, filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMARIZE_EVERY, MAX_PARAGRAPHS_TO_CONVERT, CONTEXT_PARAGRAPHS, CHARACTER_LIST, CONFIDENCE, USE_GEMINI_SUMMARIZATION, DEBUG, SIMILARITY_THRESHOLD, tagger, KOBOLDAPI, OPENAI_API_KEY, OPENAI_API_BASE, OPENAI_MODEL, GEMINI_API_KEY, STOP_SEQUENCES, config) for filename in json_files]
+        futures = [executor.submit(start_conversion_of_book, filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMARIZE_EVERY, MAX_PARAGRAPHS_TO_CONVERT, CONTEXT_PARAGRAPHS, CHARACTER_LIST, CONFIDENCE, USE_GEMINI_SUMMARIZATION, DEBUG, SIMILARITY_THRESHOLD, KOBOLDAPI, OPENAI_API_KEY, OPENAI_API_BASE, OPENAI_MODEL, GEMINI_API_KEY, STOP_SEQUENCES, config) for filename in json_files]
         
         # Wait for all futures to complete
         concurrent.futures.wait(futures)
