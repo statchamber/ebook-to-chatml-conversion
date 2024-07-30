@@ -51,4 +51,5 @@ entity_detection:
 other:
   debug: false # Enable debug mode
   concurrent_stories: 1 # Number of stories to convert at a time (Higher values require more system resources)
+  concurrent_stories: 1 # Number of stories to convert at a time (do not recommend more than one)
   string_similarity: 0.6 # String similarity threshold for detecting the same character
