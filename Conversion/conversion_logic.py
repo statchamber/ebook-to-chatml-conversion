@@ -234,6 +234,7 @@ def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMA
                         technical_data.append({
                             "line": paragraphs.index(current_lines[k]),
                             "speaker": speaker,
+                            "alias": [alias for alias, masked in masked_names.items() if masked == speaker and alias != speaker],
                             "talking_to": talking_to,
                             "action": action,
                             "content": str(line).strip()
@@ -341,6 +342,7 @@ def start_conversion_of_book(filename, context_limit, BIN_DIR, OUTPUT_DIR, SUMMA
             {
                 "line": data["line"] if "line" in data else None,
                 "speaker": clean_unicode(unmask_names(data["speaker"])) if "speaker" in data else None,
+                "alias": [clean_unicode(unmask_names(alias)) for alias in data.get("alias", [])],
                 "talking_to": clean_unicode(unmask_names(data["talking_to"])) if "talking_to" in data else None,
                 "action": clean_unicode(unmask_names(data["action"])) if "action" in data else None,
                 "content": clean_unicode(unmask_names(data["content"])) if "content" in data else None,
