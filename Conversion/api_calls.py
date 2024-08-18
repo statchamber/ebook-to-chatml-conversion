@@ -73,6 +73,7 @@ def openai_generate_text(prompt, temperature, max_tokens, api_key, api_base, mod
                 temperature=temperature,
                 max_tokens=max_tokens,
                 stop=stop_sequences,
+                api_key=api_key
             )
             return response.choices[0].message.content.strip()
         except Exception as e:
